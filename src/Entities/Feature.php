@@ -7,6 +7,13 @@ use JWebb\Unleash\Interfaces\Strategy;
 class Feature extends AbstractEntity
 {
     /**
+     * Name of the feature
+     *
+     * @var string
+     */
+    public $name;
+
+    /**
      * Whether the feature is enabled
      *
      * @var boolean
