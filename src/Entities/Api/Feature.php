@@ -21,7 +21,7 @@ class Feature extends AbstractApi implements FeatureInterface
      *
      * @var string
      */
-    protected $endpoint = "/api/client";
+    protected $endpoint = "/client";
 
     /**
      * The API entity name

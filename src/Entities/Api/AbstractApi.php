@@ -143,6 +143,6 @@ abstract class AbstractApi
      */
     public function getApiEndpoint(): string
     {
-        return $this->endpoint . "/" . $this->entityName;
+        return config('unleash.url') . "/" . $this->endpoint . "/" . $this->entityName;
     }
 }

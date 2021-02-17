@@ -19,7 +19,6 @@ class ServiceProvider extends IlluminateServiceProvider
     {
         $this->app->singleton('unleash', function ($app) {
             $client = new Client([
-                'base_uri' => config('unleash.url'),
                 'headers' => [
                     'UNLEASH-APPNAME' => config('unleash.application_name'),
                     'UNLEASH-INSTANCEID' => config('unleash.instance_id'),
