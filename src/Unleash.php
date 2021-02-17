@@ -10,8 +10,7 @@ class Unleash
     /**
      * @var Client
      */
-    public Client $client;
-
+    public $client;
     /**
      * Unleash constructor.
      * @param  Client  $client
