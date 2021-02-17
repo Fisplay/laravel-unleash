@@ -65,7 +65,7 @@ class Feature extends AbstractApi implements FeatureInterface
     protected function getCached(): array
     {
         if (config('unleash.cache.enabled')) {
-            return cache()->remember('unleash.features', config('unleash.cache.ttl'), function () {
+            return Cache::remember('unleash.features', config('unleash.cache.ttl'), function () {
                 return parent::all();
             });
         }

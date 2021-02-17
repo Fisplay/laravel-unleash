@@ -6,6 +6,7 @@ use JWebb\Unleash\Unleash;
 use GuzzleHttp\Client;
 use Illuminate\Support\Facades\Blade;
 use Illuminate\Support\ServiceProvider as IlluminateServiceProvider;
+use Laravel\Lumen\Application as Lumen;
 
 class ServiceProvider extends IlluminateServiceProvider
 {
@@ -40,6 +41,10 @@ class ServiceProvider extends IlluminateServiceProvider
     public function boot()
     {
         if (! config('unleash.enabled')) {
+            return;
+        }
+
+        if ($this->app instanceof Lumen) {
             return;
         }
 
