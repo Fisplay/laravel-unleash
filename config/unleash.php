@@ -51,6 +51,16 @@ return [
 
     /*
     |--------------------------------------------------------------------------
+    | Timeout
+    |--------------------------------------------------------------------------
+    |
+    | Specify how long (in seconds) response is waited until considered failed
+    */
+
+    'timeout' => 10,
+
+    /*
+    |--------------------------------------------------------------------------
     | Caching
     |--------------------------------------------------------------------------
     |
@@ -87,6 +97,9 @@ return [
     |
     | If the request to your Unleash instance fails consistently, use a 
     | circuit breaker and avoid redundant requests
+    |
+    | For more details see:
+    | https://github.com/francescomalatesta/laravel-circuit-breaker
     |
     */
 

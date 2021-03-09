@@ -164,6 +164,7 @@ abstract class AbstractApi
         }
 
         try {
+            $params[\GuzzleHttp\RequestOptions::TIMEOUT] = config('unleash.timeout');
             $response = $this->client->get($url, $params);
 
             if ($circuitBreaker) {
