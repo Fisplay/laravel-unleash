@@ -2,7 +2,12 @@
 
 namespace JWebb\Unleash\Entities\Api;
 
+use FrancescoMalatesta\LaravelCircuitBreaker\Manager\CircuitBreakerManager;
+use FrancescoMalatesta\LaravelCircuitBreaker\Service\ServiceOptionsResolver;
+use FrancescoMalatesta\LaravelCircuitBreaker\Store\CacheCircuitBreakerStore;
 use GuzzleHttp\Client;
+use Illuminate\Config\Repository;
+use Psr\Http\Message\ResponseInterface;
 
 abstract class AbstractApi
 {
@@ -60,7 +65,7 @@ abstract class AbstractApi
     public function all(): array
     {
         try {
-            $response = $this->client->get($this->getApiEndpoint(), $this->prepareParams());
+            $response = $this->request($this->getApiEndpoint(), $this->prepareParams());
             $response = json_decode((string)$response->getBody());
 
             if (property_exists($response, "$this->entityName")) {
@@ -86,7 +91,7 @@ abstract class AbstractApi
         $this->params = ['namePrefix' => $name];
 
         try {
-            $response = $this->client->get($this->getApiEndpoint(), $this->prepareParams());
+            $response = $this->request($this->getApiEndpoint(), $this->prepareParams());
             $response = json_decode((string)$response->getBody(), true);
 
             return $this->handleResponse($response);
@@ -144,5 +149,54 @@ abstract class AbstractApi
     public function getApiEndpoint(): string
     {
         return config('unleash.url') . "/" . $this->endpoint . "/" . $this->entityName;
+    }
+
+    private function request(string $url, array $params = []): ResponseInterface
+    {
+        $circuitBreaker = null;
+
+        if (config('unleash.circuit_breaker.enabled')) {
+            $circuitBreaker = $this->createCircuitBreaker();
+
+            if (!$circuitBreaker->isAvailable($url)) {
+                throw new \Exception('Feature flag circuit breaker open');
+            }
+        }
+
+        try {
+            $response = $this->client->get($url, $params);
+
+            if ($circuitBreaker) {
+                $circuitBreaker->reportSuccess($url);
+            }
+
+            return $response;
+        } catch (\Exception $e) {
+            if ($circuitBreaker) {
+                $circuitBreaker->reportFailure($url);
+            }
+
+            throw $e;
+        }
+    }
+
+    private function createCircuitBreaker(): CircuitBreakerManager
+    {
+        return new CircuitBreakerManager(
+            new CacheCircuitBreakerStore(app()->make('cache.store')),
+            app()->make('events'),
+            new ServiceOptionsResolver(
+                new Repository([
+                    'circuit_breaker' => [
+                        'defaults' => [
+                            'attempts_threshold' => config('unleash.circuit_breaker.attempts_threshold'),
+                            'attempts_ttl' => config('unleash.circuit_breaker.attempts_ttl'),
+                            'failure_ttl' => config('unleash.circuit_breaker.failure_ttl'),
+                        ],
+                        'services' => [],
+                    ]
+                ])
+            )
+        );
     }
 }

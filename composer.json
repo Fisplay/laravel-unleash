@@ -5,7 +5,9 @@
     "require": {
         "guzzlehttp/guzzle": "^7.0.1",
         "illuminate/support": "^6|^7|^8",
-        "illuminate/http": "^6|^7|^8"
+        "illuminate/http": "^6|^7|^8",
+        "francescomalatesta/laravel-circuit-breaker": "^0.1.0",
+        "illuminate/config": "^8.31"
     },
     "autoload": {
         "psr-4": {

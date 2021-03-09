@@ -82,6 +82,23 @@ return [
 
     /*
     |--------------------------------------------------------------------------
+    | Circuit breaker
+    |--------------------------------------------------------------------------
+    |
+    | If the request to your Unleash instance fails consistently, use a 
+    | circuit breaker and avoid redundant requests
+    |
+    */
+
+    'circuit_breaker' => [
+        'enabled' => env('UNLEASH_CIRCUIT_BREAKER_ENABLED', true),
+        'attempts_threshold' => 3,
+        'attempts_ttl' => 60,
+        'failure_ttl' => 300,
+    ],
+
+    /*
+    |--------------------------------------------------------------------------
     | Strategies
     |--------------------------------------------------------------------------
     |
