@@ -15,10 +15,10 @@ class UserWithIdStrategy extends AbstractStrategy implements Strategy
     {
         $userIds = explode(',', Arr::get($params, 'userIds', ''));
 
-        if (count($userIds) === 0 || !$user = request()->user()) {
+        if (count($userIds) === 0 || !$user = auth()->user()) {
             return false;
         }
 
-        return in_array($user->id, $userIds);
+        return in_array($user->getKey(), $userIds);
     }
 }
