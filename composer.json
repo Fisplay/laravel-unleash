@@ -2,11 +2,17 @@
     "name": "j-webb/laravel-unleash",
     "description": "An Unleash client for Laravel",
     "type": "library",
+    "repositories": {
+        "1": {
+            "type": "vcs",
+            "url": "https://github.com/Fisplay/laravel-circuit-breaker"
+        }
+    },
     "require": {
         "guzzlehttp/guzzle": "^7.0.1",
         "illuminate/support": "^6|^7|^8",
         "illuminate/http": "^6|^7|^8",
-        "francescomalatesta/laravel-circuit-breaker": "^0.1.0",
+        "francescomalatesta/laravel-circuit-breaker": "dev-master",
         "illuminate/config": "^8.31"
     },
     "autoload": {
