@@ -13,7 +13,7 @@
         "illuminate/support": "^6|^7|^8",
         "illuminate/http": "^6|^7|^8",
         "francescomalatesta/laravel-circuit-breaker": "dev-master",
-        "illuminate/config": "^8.31"
+        "illuminate/config": "^8.31|^9.0"
     },
     "autoload": {
         "psr-4": {
