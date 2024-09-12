@@ -1,8 +1,6 @@
 /vendor
-
 .phpunit.result.cache
-phpunit.xml
-
+test-results
 composer.phar
 composer.lock
 .idea

@@ -4,7 +4,6 @@ namespace JWebb\Unleash\Providers;
 
 use JWebb\Unleash\Unleash;
 use GuzzleHttp\Client;
-use Illuminate\Support\Facades\Blade;
 use Illuminate\Support\ServiceProvider as IlluminateServiceProvider;
 use Laravel\Lumen\Application as Lumen;
 
@@ -50,14 +49,6 @@ class ServiceProvider extends IlluminateServiceProvider
         $this->publishes([
             $this->getConfigPath() => config_path('unleash.php'),
         ]);
-
-        Blade::if('featureEnabled', function (string $feature) {
-            return app(Unleash::class)->isFeatureEnabled($feature);
-        });
-
-        Blade::if('featureDisabled', function (string $feature) {
-            return app(Unleash::class)->isFeatureDisabled($feature);
-        });
     }
 
     /**
