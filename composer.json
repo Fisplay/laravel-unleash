@@ -10,10 +10,10 @@
     },
     "require": {
         "guzzlehttp/guzzle": "^7.0.1",
-        "illuminate/support": "^6|^7|^8|^9|^10|^11",
-        "illuminate/http": "^6|^7|^8|^9|^10|^11",
+        "illuminate/support": "^6|^7|^8|^9|^10|^11|^12",
+        "illuminate/http": "^6|^7|^8|^9|^10|^11|^12",
         "francescomalatesta/laravel-circuit-breaker": "dev-master",
-        "illuminate/config": "^8.31|^9.0|^10|^11"
+        "illuminate/config": "^8.31|^9.0|^10|^11|^12"
     },
     "require-dev": {
         "phpunit/phpunit": "^11.3"
